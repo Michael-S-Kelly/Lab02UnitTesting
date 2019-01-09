@@ -28,9 +28,20 @@ namespace Lab02UnitTesting
             } else if (choice == "2")
             {
                 Deposit();
+            } else if (choice =="3")
+            {
+                Balance();
             }
         }
         static void Withdraw()
+        {
+
+        }
+        static void Deposit()
+        {
+
+        }
+        static void Balance()
         {
 
         }
