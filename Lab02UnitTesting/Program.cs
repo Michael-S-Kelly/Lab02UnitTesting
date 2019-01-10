@@ -21,7 +21,7 @@ namespace Lab02UnitTesting
 
         static bool MainMenu()
         {
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("1) Withdraw Funds");
             Console.WriteLine("2) Deposit Funds");
             Console.WriteLine("3) Check Balance");
@@ -39,7 +39,7 @@ namespace Lab02UnitTesting
             }
             else if (choice == "3")
             {
-                Console.WriteLine("Your account balance is ${0}.", balance);
+                Console.WriteLine($"Your account balance is ${balance}.");
                 return true;
             } else if (choice == "4")
             {
@@ -51,35 +51,37 @@ namespace Lab02UnitTesting
                 return true;
             }
         }
-        static void Withdraw()
+        static bool Withdraw()
         {
             Console.WriteLine("Please enter the amount you wish to withdraw from your funds.");
             string inputmoney = Console.ReadLine();
             double amount = Convert.ToInt32(inputmoney);
-            if (balance >= amount)
+            if (balance <= amount)
+            {
+                Console.WriteLine("That Amount is not allowed.");
+                return false;
+            }
+            else if (totWithdraw == 0)
             {
                 balance = balance - amount;
                 totWithdraw = totWithdraw + amount;
-                if (totWithdraw != amount)
-                {
-                    Console.WriteLine("You have withdrawn ${0} this transaction and ${1) this session.  Your new balance is ${2}.", amount, totWithdraw, balance);
-                    Console.ReadLine();
-                    MainMenu();
-                }
-                else if (balance == amount)
-                {
-                    balance = balance - amount;
-                    totWithdraw = totWithdraw + amount;
-                    Console.WriteLine("You have withdrawn ${0} this transaction.  Your new balance is ${1}", amount, balance);
-                    Console.ReadLine();
-                    MainMenu();
-                }
+                Console.WriteLine($"You have withdrawn ${amount} this transaction.  Your new balance is ${balance}");
+                Console.ReadLine();
+                return true;
+            }
+            else if (totWithdraw != 0)
+            {
+                balance = balance - amount;
+                totWithdraw = totWithdraw + amount;
+                Console.WriteLine($"You have withdrawn ${amount} this transaction and ${totWithdraw} this session.  Your new balance is ${balance}.");
+                Console.ReadLine();
+                return true;
             }
             else
             {
                 Console.WriteLine("I'm sorry, that amount is not allowed");
                 Console.ReadLine();
-                MainMenu();
+                return false;
             }
         }
         static void Deposit()
@@ -91,11 +93,11 @@ namespace Lab02UnitTesting
             totDeposit = totDeposit + amount;
             if (totDeposit == amount)
             {
-                Console.WriteLine("You have deposited ${0} this transaction.  Your new balance is ${1}", amount, balance);
+                Console.WriteLine($"You have deposited ${amount} this transaction.  Your new balance is ${balance}");
                 Console.ReadLine();
             } else
             {
-                Console.WriteLine("You have depositied ${0} this transaction and ${1} this session.  Your new balance is ${2}.", amount, totDeposit, balance);
+                Console.WriteLine($"You have depositied ${amount} this transaction and ${totDeposit} this session.  Your new balance is ${balance}.");
                 Console.ReadLine();
             }
         }
